@@ -20,10 +20,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'mxw/vim-jsx'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'sjl/gundo.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/syntastic'
-Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-markdown'
@@ -68,20 +66,14 @@ if has("extra_search")
   set smartcase
 endif
 
-let mapleader=","       " leader is comma
-
 set backspace=indent,eol,start
-set ttyfast
 set encoding=utf-8 nobomb
-
 set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
-
 set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
 set foldmethod=syntax   " Other acceptable values are marker, manual, expr, syntax, diff.
-
 set nowrap
 set shiftwidth=2
 set softtabstop=2
@@ -91,62 +83,34 @@ set number
 set cursorline
 set scrolloff=3
 set nostartofline
-
 set list
 set listchars=tab:▸\
 set listchars+=trail:·
 set listchars+=nbsp:_
-
+set shell=/bin/bash
 set backupdir=$HOME/.vim/backups
 set directory=$HOME/.vim/swaps
-set viminfo=$HOME/.vim/viminfo
+syntax on
 
-set shell=/bin/bash
+if !empty(&viminfo)
+  set viminfo^=!
+endif
 
 if has("persistent_undo")
   set undofile
   set undodir=$HOME/.vim/undo
 endif
 
-" jsx highlighting in js files
-let g:jsx_ext_required = 0
-
+let mapleader=","                 " leader is comma
+let g:airline_theme = 'solarized' " airline theme
+let g:airline_powerline_fonts = 1 " airline config
+let g:jsx_ext_required = 0        " jsx highlighting in js files
 let g:ackprg = 'ag --nogroup --nocolor --column'
-"
-" open ag.vim
-nnoremap <leader>a :Ag
+let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 
-" save session
-nnoremap <leader>s :mksession<CR>
-
-" edit vimrc/zshrc and load vimrc bindings
-nnoremap <leader>ev :vsp ~/vimrc<CR>
-nnoremap <leader>ez :vsp ~/.bashrc<CR>
-nnoremap <leader>sv :source ~/.vimrc<CR>
-
-" toggle gundo
-nnoremap <leader>u :GundoToggle<CR>
-
-" space open/closes folds
-nnoremap <space> za
-
+" fuzzy file finder
 nnoremap <C-p> :Files<CR>
-
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
-
-" strip whitespace
-noremap <leader>$ :call StripTrailingWhitespace()<CR>
-
-" auto indent file
-map <Leader>i mmgg=G'm<CR>
-
 " paste from system register
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<CR>
-
-" airline config
-let g:airline_theme = 'solarized'
-let g:airline_powerline_fonts = 1
-
-" Use syntastic passive mode for html since hints are mostly bogus
-let syntastic_mode_map = { 'passive_filetypes': ['html'] }
