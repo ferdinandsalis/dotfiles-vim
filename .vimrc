@@ -14,6 +14,7 @@ endif
 call plug#begin()
 Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
