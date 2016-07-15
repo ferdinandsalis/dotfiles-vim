@@ -12,21 +12,33 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
+Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'exu/pgsql.vim'
+Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mxw/vim-jsx'
-Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'scrooloose/nerdcommenter'
+Plug 'pangloss/vim-javascript', { 'branch': 'develop' }
+Plug 'pbrisbin/vim-colors-off'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
+Plug 'slim-template/vim-slim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-tbone'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
+Plug 'vim-airline/vim-airline-themes'
+" Color Themes
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'junegunn/seoul256.vim'
+Plug 'tomasr/molokai'
 call plug#end()
 
 if has("autocmd")
@@ -42,39 +54,22 @@ if has("syntax")
   call togglebg#map("<F5>")
 endif
 
-if has("cmdline_info")
-  set ruler
-  set showcmd
-  set showmode
-endif
-
-if has("wildmenu")
-  set wildmenu
-  set wildmode=longest,list
-  if has ("wildignore")
-    set wildignore+=*.a,*.pyc,*.o,*.orig
-    set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png
-    set wildignore+=.DS_Store,.git,.hg,.svn
-    set wildignore+=*~,*.sw?,*.tmp
-    set wildignore+=node_modules
-  endif
-endif
-
-if has("extra_search")
-  set hlsearch          " highlight matches
-  set incsearch         " search as characters are entered
-  set ignorecase
-  set smartcase
-endif
-
+set visualbell
+set showcmd
+set wildmenu
+set wildmode=full
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
 set backspace=indent,eol,start
 set encoding=utf-8 nobomb
-set lazyredraw          " redraw only when we need to.
-set showmatch           " highlight matching [{()}]
-set foldenable          " enable folding
-set foldlevelstart=10   " open most folds by default
-set foldnestmax=10      " 10 nested fold max
-set foldmethod=syntax   " Other acceptable values are marker, manual, expr, syntax, diff.
+set lazyredraw
+set showmatch
+set foldenable
+set foldlevelstart=10
+set foldnestmax=10
+set foldmethod=syntax
 set nowrap
 set shiftwidth=2
 set softtabstop=2
@@ -82,15 +77,14 @@ set tabstop=2
 set expandtab
 set number
 set cursorline
-set scrolloff=3
+set scrolloff=5
 set nostartofline
 set list
-set listchars=tab:▸\
-set listchars+=trail:·
-set listchars+=nbsp:_
-set shell=/bin/bash
+set listchars=tab:\|\ ,
+set shell=/usr/local/bin/bash
 set backupdir=$HOME/.vim/backups
 set directory=$HOME/.vim/swaps
+set hidden
 syntax on
 
 if !empty(&viminfo)
@@ -102,16 +96,29 @@ if has("persistent_undo")
   set undodir=$HOME/.vim/undo
 endif
 
-let mapleader=","                 " leader is comma
-let g:airline_theme = 'solarized' " airline theme
-let g:airline_powerline_fonts = 1 " airline config
-let g:jsx_ext_required = 0        " jsx highlighting in js files
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let mapleader = ' '
+let maplocalleader = ' '
+let g:sql_type_default = 'pgsql'
+let g:airline_theme = 'solarized'
+let g:airline_powerline_fonts = 1
+let g:jsx_ext_required = 0
+let g:ackprg = 'ag --nogroup --nocolor --column -a'
 let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 
-" fuzzy file finder
-nnoremap <C-p> :Files<CR>
+" GitGutter
+let g:gitgutter_enabled = 0
+nnoremap <F9> :GitGutterToggle<cr>
+" Undotree
+let g:undotree_WindowLayout = 2
+nnoremap U :UndotreeToggle<CR>(
+
+" Nerdtree
+nnoremap <F10> :NERDTreeToggle<cr>
+
+" FZF
+nnoremap <silent> <Leader><Leader> :Files<CR>
+
 " turn off search highlight
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <leader>n :nohlsearch<CR>
 " paste from system register
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<CR>
