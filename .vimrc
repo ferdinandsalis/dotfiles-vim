@@ -12,33 +12,17 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
-Plug 'bling/vim-airline'
-Plug 'edkolev/tmuxline.vim'
-Plug 'exu/pgsql.vim'
 Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'mxw/vim-jsx'
-Plug 'pangloss/vim-javascript', { 'branch': 'develop' }
-Plug 'pbrisbin/vim-colors-off'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'scrooloose/syntastic'
-Plug 'slim-template/vim-slim'
+Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-tbone'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
-Plug 'vim-airline/vim-airline-themes'
-" Color Themes
-Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'junegunn/seoul256.vim'
-Plug 'tomasr/molokai'
 call plug#end()
 
 if has("autocmd")
@@ -98,22 +82,7 @@ endif
 
 let mapleader = ' '
 let maplocalleader = ' '
-let g:sql_type_default = 'pgsql'
-let g:airline_theme = 'solarized'
-let g:airline_powerline_fonts = 1
-let g:jsx_ext_required = 0
 let g:ackprg = 'ag --nogroup --nocolor --column -a'
-let syntastic_mode_map = { 'passive_filetypes': ['html'] }
-
-" GitGutter
-let g:gitgutter_enabled = 0
-nnoremap <F9> :GitGutterToggle<cr>
-" Undotree
-let g:undotree_WindowLayout = 2
-nnoremap U :UndotreeToggle<CR>(
-
-" Nerdtree
-nnoremap <F10> :NERDTreeToggle<cr>
 
 " FZF
 nnoremap <silent> <Leader><Leader> :Files<CR>
