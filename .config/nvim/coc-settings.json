@@ -1,0 +1,17 @@
+{
+  "eslint.autoFixOnSave": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "sql",
+    "elixir",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact",
+    "json",
+    "css",
+    "markdown"
+  ],
+  "javascript.showUnused": false
+}
+
