@@ -31,49 +31,38 @@ call minpac#add('ryanoasis/vim-devicons')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
 call minpac#add('edkolev/tmuxline.vim')
+
 " # Git
 call minpac#add('tpope/vim-fugitive') " Stage, commit all from within vim
-call minpac#add('tpope/vim-rhubarb') " Github extension for vim fugitive
 call minpac#add('mhinz/vim-signify') " Show diff from git in sign column
 call minpac#add('junegunn/gv.vim') " Git browser
+call minpac#add('tpope/vim-rhubarb') " Github extension for vim fugitive
+
 " # Syntax
-call minpac#add('pangloss/vim-javascript')
-" call minpac#add('HerringtonDarkholme/yats.vim')
-" call minpac#add('leafgarland/typescript-vim')
-" call minpac#add('maxmellon/vim-jsx-pretty')
-" call minpac#add('jxnblk/vim-mdx-js')
-call minpac#add('elixir-editors/vim-elixir', { 'for': 'elixir' })
-call minpac#add('avakhov/vim-yaml', { 'for': 'yaml' })
+call minpac#add('HerringtonDarkholme/yats.vim')
+call minpac#add('othree/yajs.vim')
+call minpac#add('maxmellon/vim-jsx-pretty')
+call minpac#add('elixir-editors/vim-elixir')
 call minpac#add('jparise/vim-graphql')
-call minpac#add('lifepillar/pgsql.vim', {'for': 'sql' })
-call minpac#add('dag/vim-fish')
+call minpac#add('jxnblk/vim-mdx-js')
+call minpac#add('avakhov/vim-yaml')
+call minpac#add('lifepillar/pgsql.vim')
+
 " # Make, linter, test & more
 call minpac#add('neoclide/coc.nvim', { 'branch': 'release' })
+
 " # Theme, colors, etc.
+call minpac#add('mhartington/oceanic-next')
 call minpac#add('morhetz/gruvbox')
 call minpac#add('lifepillar/vim-solarized8')
 call minpac#add('lokaltog/vim-monotone')
+
 " # Editing
-call minpac#add('junegunn/goyo.vim')
-call minpac#add('junegunn/limelight.vim')
-call minpac#add('junegunn/rainbow_parentheses.vim')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-unimpaired')
 call minpac#add('tpope/vim-tbone')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
-call minpac#add('plasticboy/vim-markdown')
-
-" 'tpope/vim-dispatch'
-" 'janko/vim-test'
-" 'junegunn/heytmux', { 'do': 'gem install heytmux' } " tmux scripting
-" 'tpope/vim-projectionist'
-" 'mbbill/undotree'
-" 'jelera/vim-javascript-syntax'
-" 'yuezk/vim-js'
-" 'othree/yajs.vim'
-" 'peitalin/vim-jsx-typescript'
-" 'mxw/vim-jsx'
 
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
@@ -125,7 +114,6 @@ set shortmess+=c
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 set background=dark
-set re=1
 
 set title
 set smarttab
@@ -160,6 +148,7 @@ augroup vimrc
   autocmd BufWritePre /tmp/* setlocal noundofile
 augroup END
 
+
 " True color support
 " https://jdhao.github.io/2018/10/19/tmux_nvim_true_color/
 if has('termguicolors')
@@ -168,9 +157,20 @@ if has('termguicolors')
   set termguicolors
 endif
 
-let g:gruvbox_italic=1
+" TypeScript{{{
+autocmd BufNewFile,BufRead *.ts, set filetype=typescript
+autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+"}}}
 
-colorscheme gruvbox
+" JavaScript{{{
+autocmd BufNewFile,BufRead *.js, set filetype=javascript
+autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact
+"}}}
+"
+
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+colorscheme OceanicNext
 
 " }}} General
 
@@ -474,9 +474,7 @@ xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
-
-" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <C-d> <Plug>(coc-range-select)
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python nmap <silent> <C-d> <Plug>(coc-range-select)
 xmap <silent> <C-d> <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
@@ -591,6 +589,7 @@ let g:gruvbox_invert_selection=0
 " }}}
 
 " Plugin: airline {{{
+let g:airline_theme='oceanicnext'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
